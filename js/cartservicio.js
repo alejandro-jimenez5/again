@@ -5,6 +5,7 @@ const carritoVacio = document.getElementById("carrito-vacio")
 const totalesElement = document.getElementById("totales")
 const reiniciarElement = document.getElementById("reiniciar")
 const comprarElement = document.getElementById("comprar")
+const eliminarCarrito = document.getElementById("eliminar")
 
 
 
@@ -23,6 +24,7 @@ function productosInicio() {
     <button class="pepa">-</button>
     <spam class="cantidad">${producto.cantidad}</spam>
     <button class="pepa">+</button>
+    <button>eliminar</button>
     </div>
     `;
             contenedorTarjetas.appendChild(tiendaNueva)
@@ -40,6 +42,7 @@ function productosInicio() {
                     productosInicio();
                     actualizarTotales();
                 })
+        
         });
 
     }
@@ -64,17 +67,17 @@ function actualizarTotales() {
     revisarElement();
 }
 
-function revisarElement(){
+function revisarElement() {
     const productos = JSON.parse(localStorage.getItem("tienda"));
     console.log(productos, productos == true)
-    carritoVacio.classList.toggle("escondido",productos && productos.length>0);
-    totalesElement.classList.toggle("escondido",!(productos && productos.length>0));
+    carritoVacio.classList.toggle("escondido", productos && productos.length > 0);
+    totalesElement.classList.toggle("escondido", !(productos && productos.length > 0));
 }
 
 revisarElement();
 
 reiniciarElement.addEventListener("click", reiniciarCarrito);
-function reiniciarCarrito(){
+function reiniciarCarrito() {
     localStorage.removeItem("tienda");
     actualizarTotales();
     productosInicio();
@@ -83,13 +86,13 @@ function reiniciarCarrito(){
     Swal.fire({
         title: "Se borraron correctamente todos los productos",
         icon: "success"
-      });
+    });
 
 
 }
 
 comprarElement.addEventListener("click", comprarProductos);
-function comprarProductos(){
+function comprarProductos() {
     localStorage.removeItem("tienda");
     actualizarTotales();
     productosInicio();
@@ -98,5 +101,16 @@ function comprarProductos(){
     Swal.fire({
         title: "Gracias por tu compra",
         icon: "success"
-      });
+    });
+}
+
+
+
+
+eliminarCarrito.addEventListener("click", eliminarProductos);
+function eliminarProductos() {
+    localStorage.removeItem("tienda");
+    actualizarTotales();
+    productosInicio();
+    actualizarCarrito();
 }
