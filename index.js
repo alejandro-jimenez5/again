@@ -7,12 +7,6 @@ const contenedorTarjetas = document.getElementById("productos-container")
 
 
 
-
-
-
-
-
-
 function productosInicio(productos) {
 
       contenedorTarjetas.innerHTML = "";
